@@ -8,8 +8,11 @@ namespace Exercicio3
         static void Main(string[] args)
         {
             string palavra = Console.ReadLine();
-            while (!Palavra.VerificaPalavraValida(palavra))
+            while (Palavra.VerificaPalavraInvalida(palavra))
+            {
                 Console.WriteLine("Palavra inválida");
+                palavra = Console.ReadLine();
+            }
 
             int soma = Palavra.SomaPalavra(palavra);
             Console.WriteLine("A soma dos caracteres da palavra é: {0}", soma);

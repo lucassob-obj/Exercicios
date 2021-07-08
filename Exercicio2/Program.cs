@@ -8,10 +8,15 @@ namespace Exercicio2
         static void Main(string[] args)
         {
             int numero = int.Parse(Console.ReadLine());
-            if (NumeroFeliz.VerificarNumero(numero))
-                Console.WriteLine("O número {0} é feliz!", numero);
-            else
-                Console.WriteLine("O número {0} não é feliz.", numero);
+            while (numero != 0)
+            {
+                if (NumeroFeliz.VerificarNumero(numero))
+                    Console.WriteLine("O número {0} é feliz!", numero);
+                else
+                    Console.WriteLine("O número {0} não é feliz.", numero);
+
+                numero = int.Parse(Console.ReadLine());
+            }
 
             Console.ReadKey();
         }

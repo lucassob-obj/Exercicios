@@ -16,7 +16,7 @@ namespace Utils
             return resultado;
         }
 
-        public static bool VerificaPalavraValida(string palavra)
+        public static bool VerificaPalavraInvalida(string palavra)
         {
             return palavra.Any(p => !char.IsLetter(p));
         }

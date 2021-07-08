@@ -1,7 +1,7 @@
 ﻿using System;
 using Utils;
 
-namespace Exercicios
+namespace Exercicio1
 {
     class Program
     {
