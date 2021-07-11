@@ -9,6 +9,8 @@ namespace Utils
             bool numeroFeliz = false;
             List<int> listaDigitos = new List<int>();
             listaDigitos = DividirDigitos(numero);
+            if (numero < 0) return false;
+
             for (int i = 0; i < 20 && !numeroFeliz; i++)
             {
                 int sumaActual = CalcularQuadrados(listaDigitos);
