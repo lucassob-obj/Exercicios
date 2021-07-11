@@ -1,4 +1,5 @@
 ﻿using Xunit;
+using Utils;
 
 namespace Exercicio.Tests
 {
@@ -12,9 +13,9 @@ namespace Exercicio.Tests
         [InlineData(13, true)]
         [InlineData(19, true)]
         [InlineData(23, true)]
-        public void NumeroFeliz(int numero, bool resultado)
+        public void TesteNumeroFeliz(int numero, bool resultado)
         {
-            bool verifica = Utils.NumeroFeliz.VerificarNumero(numero);
+            bool verifica = NumeroFeliz.VerificarNumero(numero);
 
             Assert.Equal(resultado, verifica);
         }
@@ -27,9 +28,9 @@ namespace Exercicio.Tests
         [InlineData(5, false)]
         [InlineData(6, false)]
         [InlineData(8, false)]
-        public void NumeroNaoFeliz(int numero, bool resultado)
+        public void TesteNumeroNaoFeliz(int numero, bool resultado)
         {
-            bool verifica = Utils.NumeroFeliz.VerificarNumero(numero);
+            bool verifica = NumeroFeliz.VerificarNumero(numero);
 
             Assert.Equal(resultado, verifica);
         }
@@ -42,7 +43,7 @@ namespace Exercicio.Tests
         [InlineData(-5, false)]
         public void NumeroNaturalValido(int numero, bool resultado)
         {
-            bool verifica = Utils.NumeroFeliz.VerificarNumero(numero);
+            bool verifica = NumeroFeliz.VerificarNumero(numero);
 
             Assert.Equal(resultado, verifica);
         }
