@@ -11,7 +11,7 @@
                 {
                     if ((i % 3 == 0 || i % 5 == 0) && i % 7 == 0)
                         soma += i;
-                }    
+                }
                 else if (numero3 && numero5)
                 {
                     if (i % 3 == 0 && i % 5 == 0)
