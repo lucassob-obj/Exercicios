@@ -1,4 +1,5 @@
-﻿using Exercicio4.Models;
+﻿using Exercicio4.Enum;
+using Exercicio4.Models;
 using Exercicio4.Services;
 using System;
 using System.Collections.Generic;
@@ -13,8 +14,10 @@ namespace Exercicio4
             Carrinho carrinho = new Carrinho();
             carrinho.Cliente = InicializaCliente();
             IEnumerable<Produto> produtos = InicializaProdutos();
-            CalculaFreteService freteService = new CalculaFreteService();
-            
+            const decimal freteRegente = 20.9M;
+            const decimal fretePirapozinho = 30.9M;
+            decimal frete = int.Parse(carrinho.Cliente.CEP) == ((int)FreteCEP.Regente) ? freteRegente : fretePirapozinho;
+
             int opcao = 0;
             while ((opcao = Menu()) != 0)
             {
@@ -49,10 +52,30 @@ namespace Exercicio4
                 }
                 else if (opcao == 4)
                 {
-                    decimal frete = freteService.CalculaFrete(carrinho);
                     decimal valorFinal = frete + carrinho.Itens.Sum(i => i.Quantidade * i.Produto.Valor);
                     Console.WriteLine($"O valor do frete é: {frete}");
                     Console.WriteLine($"Valor final: {valorFinal}");
+                }
+                else if (opcao == 5)
+                {
+                    Console.WriteLine("Digite o codigo do produto:");
+                    int codigo = int.Parse(Console.ReadLine());
+                    Console.WriteLine("Digite a quantidade que deseja (0 para remover o produto):");
+                    int quantidade = int.Parse(Console.ReadLine());
+                    var item = carrinho.Itens.FirstOrDefault(x => x.Produto.Codigo == codigo);
+                    if (item == null)
+                        Console.WriteLine("Produto não encontrado no carrinho");
+                    else
+                    {
+                        if (quantidade > 0)
+                            item.Quantidade = quantidade;
+                        else
+                            ((List<CarrinhoItem>)carrinho.Itens).Remove(item);
+                    }
+                }
+                else if (opcao == 6)
+                {
+                    carrinho.Itens = new List<CarrinhoItem>();
                 }
                 Console.WriteLine("\nPrecione qualquer tecla...");
                 Console.ReadLine();
@@ -67,6 +90,8 @@ namespace Exercicio4
             Console.WriteLine(" 2 - Adicionar produto no carrinho");
             Console.WriteLine(" 3 - Listar produtos do carrinho");
             Console.WriteLine(" 4 - Calcular frete");
+            Console.WriteLine(" 5 - Alterar quantidade do produto");
+            Console.WriteLine(" 6 - Limpar o carrinho");
             Console.WriteLine(" 0 - Sair");
             return int.Parse(Console.ReadLine());
         }
