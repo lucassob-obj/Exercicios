@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace Exercicio4.Services
 {
-    public class ListarProdutosCarrinhoService : IOpcao
+    public class ListarProdutosService : IOpcao
     {
         public void RealizarAcao(Models.Carrinho carrinho)
         {

@@ -1,21 +1,31 @@
 ﻿using Exercicio4.Enum;
 using Exercicio4.Interfaces;
+using System;
+using System.Linq;
 
 namespace Exercicio4.Services.Carrinho
 {
-    public static class CalcularFreteCarrinhoService
+    public class CalcularFreteCarrinhoService : IOpcao
     {
-        //public decimal CalcularFrete(FreteCEP cep)
-        //{
-        //    switch (cep)
-        //    {
-        //        case FreteCEP.Regente:
+        private IFrete frete;
 
-        //            break;
-        //        case FreteCEP.Pirapozinho:
-        //            break;
-        //    }
-        //    return 0;
-        //}
+        public CalcularFreteCarrinhoService(IFrete frete)
+        {
+            this.frete = frete;
+        }
+        public void RealizarAcao(Models.Carrinho carrinho)
+        {
+            var valorCarrinho = carrinho.Itens.ToList().Sum(x => x.Quantidade * x.Produto.Valor);
+            if (valorCarrinho < 100)
+            {
+                Console.WriteLine($"Valor do frete: R${frete.CalcularFrete()}");
+                Console.WriteLine($"Valor final: R$ {valorCarrinho + frete.CalcularFrete()}");
+            }
+            else
+            {
+                Console.WriteLine($"Valor do frete: R$ 0,0");
+                Console.WriteLine($"Valor final: R$ {valorCarrinho}");
+            }
+        }
     }
 }
