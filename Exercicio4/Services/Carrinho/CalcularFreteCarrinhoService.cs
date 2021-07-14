@@ -1,6 +1,8 @@
 ﻿using Exercicio4.Enum;
 using Exercicio4.Interfaces;
+using Exercicio4.Models;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace Exercicio4.Services.Carrinho

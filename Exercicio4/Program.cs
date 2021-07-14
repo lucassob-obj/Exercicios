@@ -13,42 +13,47 @@ namespace Exercicio4
     {
         static void Main(string[] args)
         {
-            Carrinho carrinho = new Carrinho();
-            carrinho.Cliente = InicializaCliente();
-            IEnumerable<Produto> produtos = InicializaProdutos();
-            List<IOpcao> opcoes = InicializaOpcoes(int.Parse(carrinho.Cliente.CEP));
-
-            int opcao = 0;
-            while ((opcao = Menu()) != 0)
+            try
             {
-                if (opcao == 1)
-                {
-                    foreach (Produto produto in produtos)
-                        Console.WriteLine($" Descrição: {produto.Descricao} | Preço unitário: {produto.Valor}");
-                }
-                else
-                    opcoes[opcao - 2].RealizarAcao(carrinho);
+                Carrinho carrinho = new Carrinho();
+                carrinho.Cliente = InicializaCliente();
+                List<Produto> produtos = InicializaProdutos();
+                List<IOpcao> opcoes = InicializaOpcoes(int.Parse(carrinho.Cliente.CEP), produtos);
 
-                Console.WriteLine("\nPrecione qualquer tecla...");
-                Console.ReadLine();
+                int opcao = 0;
+                while ((opcao = Menu()) != 0)
+                {
+                    if (opcao < 0 || opcao > 6)
+                        Console.WriteLine("Opção inválida.");
+                    else
+                        opcoes[opcao - 1].RealizarAcao(carrinho);
+
+                    Console.WriteLine("\nPrecione qualquer tecla...");
+                    Console.ReadLine();
+                }
             }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+            
         }
 
         static int Menu()
         {
             Console.Clear();
             Console.WriteLine("     --- Menu ---");
-            Console.WriteLine(" 1 - Listar produtos");
-            Console.WriteLine(" 2 - Adicionar produto no carrinho");
-            Console.WriteLine(" 3 - Listar produtos do carrinho");
-            Console.WriteLine(" 4 - Calcular frete");
-            Console.WriteLine(" 5 - Alterar quantidade do produto");
-            Console.WriteLine(" 6 - Limpar o carrinho");
+            Console.WriteLine(" 1 - Listar produtos da loja");
+            Console.WriteLine(" 2 - Listar produtos do carrinho");
+            Console.WriteLine(" 3 - Adicionar produto no carrinho");
+            Console.WriteLine(" 4 - Alterar quantidade do produto");
+            Console.WriteLine(" 5 - Limpar o carrinho");
+            Console.WriteLine(" 6 - Calcular frete");
             Console.WriteLine(" 0 - Sair");
             return int.Parse(Console.ReadLine());
         }
 
-        static List<IOpcao> InicializaOpcoes(int CEP)
+        static List<IOpcao> InicializaOpcoes(int CEP, List<Produto> catalogo)
         {
             IFrete freteService;
             if (CEP == (int)FreteCEP.Regente)
@@ -57,11 +62,12 @@ namespace Exercicio4
                 freteService = new PirapozinhoFreteService();
 
             List<IOpcao> opcoes = new List<IOpcao>();
-            opcoes.Add(new AddProdutoCarrinhoService());
+            opcoes.Add(new ListarProdutosService(catalogo));
             opcoes.Add(new ListarProdutosService());
-            opcoes.Add(new CalcularFreteCarrinhoService(freteService));
+            opcoes.Add(new AddProdutoCarrinhoService(catalogo));
             opcoes.Add(new AlterarQuantidadeCarrinhoService());
             opcoes.Add(new LimparCarrinhoService());
+            opcoes.Add(new CalcularFreteCarrinhoService(freteService));
             return opcoes;
         }
 
