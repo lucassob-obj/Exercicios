@@ -5,9 +5,12 @@ namespace Exercicio4.Services
     public class RegenteFreteService : IFrete
     {
         private const decimal Frete = 20.9m;
-        public decimal CalcularFrete()
+        public decimal CalcularFrete(decimal valorCarrinho)
         {
-            return Frete;
+            if (valorCarrinho < 100)
+                return Frete;
+
+            return 0;
         }
     }
 }

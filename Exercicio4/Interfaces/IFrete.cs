@@ -2,6 +2,6 @@
 {
     public interface IFrete
     {
-        public decimal CalcularFrete();
+        public decimal CalcularFrete(decimal valorCarrinho);
     }
 }

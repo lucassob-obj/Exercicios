@@ -9,7 +9,7 @@ namespace Exercicio4.Models
             Itens = new List<CarrinhoItem>();
         }
         public Cliente Cliente { get; set; }
-        public IEnumerable<CarrinhoItem> Itens { get; set; }
+        public List<CarrinhoItem> Itens { get; set; }
     }
 
 }
