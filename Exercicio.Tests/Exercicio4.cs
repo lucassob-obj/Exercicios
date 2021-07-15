@@ -1,9 +1,7 @@
 ﻿using Exercicio4.Interfaces;
 using Exercicio4.Models;
-using Exercicio4.Services;
 using Exercicio4.Services.Carrinho;
 using Moq;
-using System.Linq;
 using Xunit;
 
 namespace Exercicio.Tests
