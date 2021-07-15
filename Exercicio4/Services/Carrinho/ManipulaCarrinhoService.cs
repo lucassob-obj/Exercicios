@@ -23,7 +23,7 @@ namespace Exercicio4.Services.Carrinho
         {
             var item = Carrinho.Itens.FirstOrDefault(i => i.Produto.Codigo == produto.Codigo);
             if (item != null)
-                item.Quantidade++;
+                item.Quantidade += quantidade;
             else
                 Carrinho.Itens.Add(new CarrinhoItem
                 {
