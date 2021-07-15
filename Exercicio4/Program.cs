@@ -5,7 +5,6 @@ using Exercicio4.Services;
 using Exercicio4.Services.Carrinho;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace Exercicio4
 {
@@ -18,7 +17,7 @@ namespace Exercicio4
                 Carrinho carrinho = new Carrinho();
                 carrinho.Cliente = InicializaCliente();
                 List<Produto> produtos = InicializaProdutos();
-                List<IOpcao> opcoes = InicializaOpcoes(int.Parse(carrinho.Cliente.CEP), produtos);
+                List<IOpcao> opcoes = InicializaOpcoes(int.Parse(carrinho.Cliente.CEP), carrinho, produtos);
 
                 int opcao = 0;
                 while ((opcao = Menu()) != 0)
@@ -26,7 +25,7 @@ namespace Exercicio4
                     if (opcao < 0 || opcao > 6)
                         Console.WriteLine("Opção inválida.");
                     else
-                        opcoes[opcao - 1].RealizarAcao(carrinho);
+                        opcoes[opcao - 1].RealizarAcao();
 
                     Console.WriteLine("\nPrecione qualquer tecla...");
                     Console.ReadLine();
@@ -53,7 +52,7 @@ namespace Exercicio4
             return int.Parse(Console.ReadLine());
         }
 
-        static List<IOpcao> InicializaOpcoes(int CEP, List<Produto> catalogo)
+        static List<IOpcao> InicializaOpcoes(int CEP, Carrinho carrinho, List<Produto> catalogo)
         {
             IFrete freteService;
             if (CEP == (int)FreteCEP.Regente)
@@ -63,11 +62,11 @@ namespace Exercicio4
 
             List<IOpcao> opcoes = new List<IOpcao>();
             opcoes.Add(new ListarProdutosService(catalogo));
-            opcoes.Add(new ListarProdutosService());
-            opcoes.Add(new AddProdutoCarrinhoService(catalogo));
-            opcoes.Add(new AlterarQuantidadeCarrinhoService());
-            opcoes.Add(new LimparCarrinhoService());
-            opcoes.Add(new CalcularFreteCarrinhoService(freteService));
+            opcoes.Add(new ListarProdutosService(carrinho));
+            opcoes.Add(new AddProdutoCarrinhoService(carrinho, catalogo));
+            opcoes.Add(new AlterarQuantidadeCarrinhoService(carrinho));
+            opcoes.Add(new LimparCarrinhoService(carrinho));
+            opcoes.Add(new CalcularFreteCarrinhoService(carrinho, freteService));
             return opcoes;
         }
 

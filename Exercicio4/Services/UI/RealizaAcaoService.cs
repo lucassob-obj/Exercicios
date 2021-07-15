@@ -10,9 +10,9 @@ namespace Exercicio4.Services.Carrinho
             this.opcao = opcao;
         }
 
-        public void RealizaAcao(Models.Carrinho carrinho)
+        public void RealizaAcao()
         {
-            opcao.RealizarAcao(carrinho);
+            opcao.RealizarAcao();
         }
     }
 }

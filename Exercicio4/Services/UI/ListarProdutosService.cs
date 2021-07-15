@@ -9,13 +9,18 @@ namespace Exercicio4.Services
     public class ListarProdutosService : IOpcao
     {
         private List<Produto> Catalogo { get; set; }
-        public ListarProdutosService() { }
+        private Models.Carrinho Carrinho { get; set; }
+
+        public ListarProdutosService(Models.Carrinho Carrinho)
+        {
+            this.Carrinho = Carrinho;
+        }
         public ListarProdutosService(List<Produto> Catalogo)
         {
             this.Catalogo = Catalogo;
         }
 
-        public void RealizarAcao(Models.Carrinho carrinho)
+        public void RealizarAcao()
         {
             if (Catalogo != null)
             {
@@ -24,14 +29,14 @@ namespace Exercicio4.Services
             }
             else
             {
-                if (carrinho.Itens.Count() < 1)
+                if (Carrinho.Itens.Count() < 1)
                     Console.WriteLine("Não há produtos no carrinho.");
                 else
                 {
-                    foreach (var item in carrinho.Itens)
+                    foreach (var item in Carrinho.Itens)
                         Console.WriteLine($" Produto: {item.Produto.Descricao} | Quantidade: {item.Quantidade} | Subtotal: {item.Produto.Valor * item.Quantidade}");
 
-                    Console.WriteLine($"\n Total: {carrinho.Itens.Sum(i => i.Produto.Valor * i.Quantidade)}");
+                    Console.WriteLine($"\n Total: {Carrinho.Itens.Sum(i => i.Produto.Valor * i.Quantidade)}");
                 }
             }
         }
