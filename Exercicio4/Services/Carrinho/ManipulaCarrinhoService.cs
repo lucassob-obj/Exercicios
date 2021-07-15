@@ -9,7 +9,6 @@ namespace Exercicio4.Services.Carrinho
     {
         private Models.Carrinho Carrinho { get; set; }
         private IFrete _freteService { get; set; }
-        public ManipulaCarrinhoService() { }
         public ManipulaCarrinhoService(Models.Carrinho Carrinho)
         {
             this.Carrinho = Carrinho;
@@ -21,7 +20,7 @@ namespace Exercicio4.Services.Carrinho
         }
         public void AddProduto(Produto produto, int quantidade)
         {
-            var item = Carrinho.Itens.FirstOrDefault(i => i.Produto.Codigo == produto.Codigo);
+            var item = BuscaItemNoCarrinho(produto.Codigo);
             if (item != null)
                 item.Quantidade += quantidade;
             else

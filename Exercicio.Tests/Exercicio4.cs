@@ -22,29 +22,32 @@ namespace Exercicio.Tests
                     Valor = 40.9M
                 }
             });
-            Mock<IManipulaCarrinhoService> mockCarrinho = new Mock<IManipulaCarrinhoService>();
-            mockCarrinho.Setup(m => m.CalcularValorCarrinho()).Returns(81.8M);
-            IManipulaCarrinhoService carrinhoService = new ManipulaCarrinhoService(carrinho);
 
-            decimal resultadoEsperado = mockCarrinho.Object.CalcularValorCarrinho();
+            var carrinhoService = new ManipulaCarrinhoService(carrinho);
+
             decimal resultado = carrinhoService.CalcularValorCarrinho();
 
-            Assert.Equal(resultadoEsperado, resultado);
+            Assert.Equal(81.8M, resultado);
         }
 
         [Fact]
         public void ValorFinalDoCarrinhoSemProdutos()
         {
-            Carrinho carrinho = new Carrinho();
+            var carrinhoService = new ManipulaCarrinhoService(new Carrinho());
 
-            Mock<IManipulaCarrinhoService> mockCarrinho = new Mock<IManipulaCarrinhoService>();
-            mockCarrinho.Setup(m => m.CalcularValorCarrinho()).Returns(0);
-            IManipulaCarrinhoService carrinhoService = new ManipulaCarrinhoService();
-
-            decimal resultadoEsperado = mockCarrinho.Object.CalcularValorCarrinho();
             decimal resultado = carrinhoService.CalcularValorCarrinho();
 
-            Assert.Equal(resultadoEsperado, resultado);
+            Assert.Equal(0, resultado);
+        }
+
+        [Fact]
+        public void ValorFinalDoCarrinhoNulo()
+        {
+            var carrinhoService = new ManipulaCarrinhoService(null);
+
+            decimal resultado = carrinhoService.CalcularValorCarrinho();
+
+            Assert.Equal(0, resultado);
         }
 
         [Fact]
